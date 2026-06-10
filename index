@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Old Hollywood Glamour – Entscheidungsbaum</title>
+  <style>
+    :root {
+      --bg: #0f0c0c;
+      --surface: #1a1515;
+      --surface-2: #241d1d;
+      --card: #2d2424;
+      --text: #f6eee7;
+      --muted: #cdbfb1;
+      --gold: #d4af37;
+      --border: rgba(212, 175, 55, 0.22);
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 30%),
+                  linear-gradient(180deg, #120f0f 0%, #0f0c0c 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; padding: 3rem 0 4rem; }
+    .hero { text-align: center; margin-bottom: 2rem; }
+    .hero h1 { margin: 0 0 0.75rem; font-size: clamp(2rem, 5vw, 4rem); color: var(--gold); letter-spacing: 0.03em; }
+    .hero p { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 1.05rem; }
+    .panel { background: rgba(26,21,21,0.92); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; backdrop-filter: blur(6px); }
+    .gender-switch { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0; }
+    .gender-btn, .option-btn, .restart-btn {
+      appearance: none; border: 1px solid var(--border);
+      background: linear-gradient(180deg, #352929 0%, #241b1b 100%);
+      color: var(--text); padding: 0.9rem 1.2rem; border-radius: 999px; cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease; font-size: 1rem;
+    }
+    .gender-btn:hover, .option-btn:hover, .restart-btn:hover { transform: translateY(-2px); border-color: rgba(212,175,55,0.55); }
+    .gender-btn.active { background: linear-gradient(180deg, #8a2435 0%, #661a27 100%); border-color: rgba(212,175,55,0.65); }
+    .tree { display: grid; gap: 1.25rem; }
+    .question-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; }
+    .question-title { margin: 0 0 0.85rem; color: var(--gold); font-size: 1.3rem; }
+    .options { display: grid; gap: 0.75rem; }
+    .option-btn { width: 100%; text-align: left; border-radius: 14px; padding: 1rem 1.1rem; background: linear-gradient(180deg, #312626 0%, #221a1a 100%); }
+    .path { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+    .chip { background: rgba(212,175,55,0.12); color: var(--text); border: 1px solid rgba(212,175,55,0.18); border-radius: 999px; padding: 0.35rem 0.75rem; font-size: 0.92rem; }
+    .result { display: none; margin-top: 1rem; background: linear-gradient(180deg, rgba(125,31,47,0.18), rgba(212,175,55,0.06)), var(--card); border: 1px solid rgba(212,175,55,0.35); border-radius: 18px; padding: 1.5rem; }
+    .result.show { display: block; }
+    .result-header { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .result-portrait {
+      flex-shrink: 0; width: 180px; height: 220px;
+      object-fit: cover; object-position: top center;
+      border-radius: 14px; border: 2px solid rgba(212,175,55,0.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      filter: grayscale(20%) contrast(1.05);
+      background: var(--surface-2);
+    }
+    .portrait-fallback {
+      flex-shrink: 0; width: 180px; height: 220px;
+      border-radius: 14px; border: 2px solid rgba(212,175,55,0.2);
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem; text-align: center; padding: 1rem;
+    }
+    .result-intro { flex: 1; min-width: 200px; }
+    .result h2 { margin: 0 0 0.4rem; color: var(--gold); font-size: clamp(1.6rem, 4vw, 2.4rem); }
+    .result .subtitle { margin: 0 0 1rem; color: #f1d9c7; font-style: italic; }
+    .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0 1.25rem; }
+    .result-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.16); border-radius: 14px; padding: 1rem; }
+    .result-card h3 { margin: 0 0 0.5rem; color: var(--gold); font-size: 1rem; }
+    .result-card ul { margin: 0; padding-left: 1.15rem; }
+    .result-card li { margin-bottom: 0.35rem; color: var(--muted); }
+    .result-note { color: var(--muted); margin-bottom: 1rem; }
+    @media (max-width: 760px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .container { width: min(100% - 1rem, 1000px); padding-top: 1.5rem; }
+      .panel { padding: 1rem; }
+      .result-portrait, .portrait-fallback { width: 130px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+<main class="container">
+  <section class="hero">
+    <h1>Old Hollywood Glamour</h1>
+    <p>Wähle zuerst ein Styling-Profil und klicke dich dann durch den Entscheidungsbaum.
+       Am Ende erhältst du eine Ikone als Inspiration für deinen Look.</p>
+  </section>
+  <section class="panel">
+    <div class="gender-switch">
+      <button class="gender-btn active" data-gender="female">Für Frauen</button>
+      <button class="gender-btn" data-gender="male">Für Männer</button>
+    </div>
+    <div id="path" class="path"></div>
+    <div id="tree" class="tree"></div>
+    <div id="result" class="result"></div>
+  </section>
+</main>
+
+<script>
+/*
+ * ============================================================
+ *  BILDER-SETUP — GitHub Repository Struktur
+ * ============================================================
+ *
+ *  Lege alle Portraitbilder in einem Ordner "images/" im
+ *  selben Verzeichnis wie diese HTML-Datei ab:
+ *
+ *  dein-repo/
+ *  ├── dresscode-entscheidungsbaum.html   ← diese Datei
+ *  └── images/
+ *      │
+ *      │  ── FRAUEN ──────────────────────────────────────────
+ *      ├── audrey-hepburn.jpg
+ *      ├── marilyn-monroe.jpg
+ *      ├── elizabeth-taylor.jpg
+ *      ├── lauren-bacall.jpg
+ *      ├── grace-kelly.jpg
+ *      └── marlene-dietrich.jpg
+ *      │
+ *      │  ── MÄNNER ──────────────────────────────────────────
+ *      ├── cary-grant.jpg
+ *      ├── clark-gable.jpg
+ *      ├── frank-sinatra.jpg
+ *      ├── steve-mcqueen.jpg
+ *      ├── marlon-brando.jpg
+ *      └── james-dean.jpg
+ *
+ *  Format-Empfehlung:
+ *    • JPG oder WebP, ca. 400 × 500 px (Hochformat)
+ *    • Dateinamen EXAKT wie oben (Kleinschreibung, Bindestrich)
+ *
+ *  Tipp – Bilder direkt in GitHub hochladen:
+ *    1. Im Repository auf "Add file" → "Upload files" klicken
+ *    2. In den Ordner images/ navigieren (ggf. zuerst anlegen)
+ *    3. Dateien mit den exakten Namen hochladen
+ *    4. Commit bestätigen
+ *
+ *  Falls ein Bild fehlt oder nicht lädt, erscheint automatisch
+ *  ein Platzhalter mit dem Namen der Ikone.
+ * ============================================================
+ */
+
+const data = {
+  female: {
+    title: "Entscheidungsbaum – Frauen",
+    questions: {
+      start: {
+        text: "Welche Grundwirkung passt am besten zu dir?",
+        options: [
+          { label: "Schlicht, elegant und zeitlos", next: "female_minimal" },
+          { label: "Sinnlich, glamourös und auffällig", next: "female_glam" },
+          { label: "Klassisch, royal und makellos", next: "female_classic" },
+          { label: "Kühl, androgyn und modebewusst", next: "female_androgyn" }
+        ]
+      },
+      female_minimal: {
+        text: "Welches Outfit spricht dich mehr an?",
+        options: [
+          { label: "Kleines Schwarzes, Perlen, klare Eleganz", result: "audrey" },
+          { label: "Schlichte Silhouette mit auffälligen Ohrringen", result: "bacall" }
+        ]
+      },
+      female_glam: {
+        text: "Welche Glamour-Richtung gefällt dir stärker?",
+        options: [
+          { label: "Weiß/Creme, Pelz, rote Lippen, Locken", result: "marilyn" },
+          { label: "Figurbetonte Robe, Diamanten, dramatische Farben", result: "elizabeth" }
+        ]
+      },
+      female_classic: {
+        text: "Wie zurückhaltend soll dein Look sein?",
+        options: [
+          { label: "Sehr clean, maßgeschneidert und dezent", result: "grace" },
+          { label: "Etwas mehr Drama und Schmuck", result: "elizabeth" }
+        ]
+      },
+      female_androgyn: {
+        text: "Was reizt dich mehr?",
+        options: [
+          { label: "Smoking, Hosenanzug, weiße Bluse mit Krawatte", result: "marlene" },
+          { label: "Elegant, aber immer noch eher reduziert", result: "bacall" }
+        ]
+      }
+    },
+    results: {
+      audrey: {
+        icon: "Audrey Hepburn",
+        subtitle: "Schlichte Eleganz mit ikonischem Chic",
+        img: "images/audrey-hepburn.jpg",
+        vibe: "Ideal, wenn du ein kleines Schwarzes, Perlen, Ballerinas oder eine elegante Hochsteckfrisur bevorzugst.",
+        outfit: ["Kleines Schwarzes, schulterfrei oder hochgeschlossen","Perlenkette oder Perlenohrringe","Ballerinas oder schlichte Pumps","Saubere, elegante Silhouette"],
+        beauty: ["Betonte Augen statt starker Lippen","Eyeliner und definierte Brauen","Hochsteckfrisur oder schicker Kurzhaarschnitt","Zurückhaltender, makelloser Teint"]
+      },
+      marilyn: {
+        icon: "Marilyn Monroe",
+        subtitle: "Sinnlicher Glamour mit großer Bühne",
+        img: "images/marilyn-monroe.jpg",
+        vibe: "Perfekt, wenn du weiße oder cremefarbene Abendkleider, Pelz, Diamanten und rote Lippen liebst.",
+        outfit: ["Weißes, cremefarbenes oder rosafarbenes Abendkleid","Faux-Fur-Stola oder Cape","Funkelnde Diamanten oder Statement-Schmuck","Peep-Toe-Heels oder hohe Pumps"],
+        beauty: ["Kräftig rote Lippen","Große Locken oder glamouröse Wellen","Makelloser Teint mit Blush","Optional: Beauty Spot"]
+      },
+      elizabeth: {
+        icon: "Elizabeth Taylor",
+        subtitle: "Dramatisch, luxuriös und funkelnd",
+        img: "images/elizabeth-taylor.jpg",
+        vibe: "Der richtige Weg, wenn du eine figurbetonte Robe und opulenten Schmuck tragen möchtest.",
+        outfit: ["Figurbetonte Abendrobe","Diamanten und Edelsteine als Blickfang","Dramatische Farben oder starke Kontraste","Elegante Heels und luxuriöse Materialien"],
+        beauty: ["Intensiver Glamour-Look","Betonte Augen und definierte Konturen","Klassische Abendfrisur","Statement-Ausstrahlung statt Zurückhaltung"]
+      },
+      bacall: {
+        icon: "Lauren Bacall",
+        subtitle: "Zurückhaltend, aber unwiderstehlich",
+        img: "images/lauren-bacall.jpg",
+        vibe: "Passt gut, wenn du Understatement mit einzelnen starken Akzenten kombinieren willst.",
+        outfit: ["Schlichteres Oberteil oder reduzierte Silhouette","Statement-Ohrringe als Fokus","Weniger Zierde, mehr Haltung","Elegante, unaufgeregte Linien"],
+        beauty: ["Dezentes, definiertes Make-up","Selbstbewusste Ausstrahlung","Klassische Frisur ohne Überladung","Weniger ist mehr"]
+      },
+      grace: {
+        icon: "Grace Kelly",
+        subtitle: "Royaler Klassizismus und makellose Linien",
+        img: "images/grace-kelly.jpg",
+        vibe: "Für alle, die dezente Raffinesse und maßgeschneiderte Eleganz bevorzugen.",
+        outfit: ["Maßgeschneidertes Kleid oder klassische Silhouette","Dezenter Schmuck","Hochwertige Stoffe ohne zu viele Effekte","Sehr gepflegter, harmonischer Gesamtlook"],
+        beauty: ["Makelloser, frischer Teint","Zurückhaltendes, elegantes Make-up","Glatte, klassische Frisur","Unaufdringlicher Luxus"]
+      },
+      marlene: {
+        icon: "Marlene Dietrich",
+        subtitle: "Androgyn, kühl und ikonisch",
+        img: "images/marlene-dietrich.jpg",
+        vibe: "Die beste Wahl, wenn du Old Hollywood über Haltung und Tailoring interpretieren willst.",
+        outfit: ["Smoking oder Hosenanzug","Weiße Bluse mit Krawatte","Klare Schultern und präziser Schnitt","Weniger Schmuck, mehr Präsenz"],
+        beauty: ["Markante Kontur","Kühler, distanzierter Ausdruck","Sleek Styling","Bewusst androgyne Wirkung"]
+      }
+    }
+  },
+
+  male: {
+    title: "Entscheidungsbaum – Männer",
+    questions: {
+      start: {
+        text: "Welche Stilrichtung passt am ehesten zu dir?",
+        options: [
+          { label: "Klassisch, elegant und perfekt geschneidert", next: "male_classic" },
+          { label: "Cool, filmisch und leicht geheimnisvoll", result: "mcqueen" },
+          { label: "Formell, auffällig und sehr raffiniert", next: "male_formal" },
+          { label: "Lässig, maskulin und moderner", next: "male_casual" }
+        ]
+      },
+      male_classic: {
+        text: "Was ist dir wichtiger?",
+        options: [
+          { label: "Grau-Flanell, natürliche Schulter, zeitlos", result: "cary" },
+          { label: "Doppelreiher, breite Revers, Krawatte und Einstecktuch", result: "gable" }
+        ]
+      },
+      male_formal: {
+        text: "Wie glamourös soll es werden?",
+        options: [
+          { label: "Dreiteiler oder Smoking mit Trilby-Hut", result: "sinatra" }
+        ]
+      },
+      male_casual: {
+        text: "Welche Art von Lässigkeit passt besser?",
+        options: [
+          { label: "Weißes T-Shirt, Lederjacke, Jeans", result: "brando" },
+          { label: "Weißes T-Shirt, roter Blouson, rebellischer Look", result: "jamesdean" }
+        ]
+      }
+    },
+    results: {
+      cary: {
+        icon: "Cary Grant",
+        subtitle: "Zeitloser Gentleman mit perfekter Balance",
+        img: "images/cary-grant.jpg",
+        vibe: "Ideal, wenn du klassische Eleganz willst, ohne übertrieben formell zu wirken.",
+        outfit: ["Grau-Flanell-Anzug mit natürlicher Schulter","Saubere, schlanke Linie ohne modische Extreme","Weißes Hemd und klassische Krawatte","Zurückhaltende, hochwertige Accessoires"],
+        beauty: ["Gepflegte Haare mit sauberem Styling","Klassische Gentleman-Ausstrahlung","Keine Überladung, alles sitzt perfekt","Harmonischer Gesamtlook"]
+      },
+      gable: {
+        icon: "Clark Gable",
+        subtitle: "Starkes Tailoring mit klassischer Autorität",
+        img: "images/clark-gable.jpg",
+        vibe: "Richtig für dich, wenn du Doppelreiher, breite Revers und klassische Männermode der Ära liebst.",
+        outfit: ["Doppelreihiger Anzug oder Dreiteiler","Breite Revers und hohe Bundfalten","Krawatte und Einstecktuch","Dunkelblau, Anthrazit oder Grau-Flanell"],
+        beauty: ["Sehr gepflegtes Haar","Souveräne, formelle Ausstrahlung","Kein Casual-Bruch","Klassischer Abend-Look"]
+      },
+      sinatra: {
+        icon: "Frank Sinatra",
+        subtitle: "Raffinierter Abendglamour mit Persönlichkeit",
+        img: "images/frank-sinatra.jpg",
+        vibe: "Die beste Option, wenn du sehr stilvoll, leicht showmanhaft und abendtauglich erscheinen willst.",
+        outfit: ["Anthrazitfarbener Dreiteiler oder Smoking","Trilby-Hut","Hohe Bundfalten","Opera Pumps oder besonders elegante Schuhe"],
+        beauty: ["Souveränes, charmantes Auftreten","Perfekt abgestimmte Accessoires","Abendlook mit Charakter","Klassisch, aber nicht steif"]
+      },
+      mcqueen: {
+        icon: "Steve McQueen",
+        subtitle: "Minimalistisch, funktional und cool",
+        img: "images/steve-mcqueen.jpg",
+        vibe: "Gut, wenn du Old Hollywood modern und entspannter interpretieren willst.",
+        outfit
