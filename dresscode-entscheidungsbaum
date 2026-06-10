@@ -100,50 +100,6 @@
   </section>
 </main>
 
-<script>
-/*
- * ============================================================
- *  BILDER-SETUP — GitHub Repository Struktur
- * ============================================================
- *
- *  Lege alle Portraitbilder in einem Ordner "images/" im
- *  selben Verzeichnis wie diese HTML-Datei ab:
- *
- *  dein-repo/
- *  ├── dresscode-entscheidungsbaum.html   ← diese Datei
- *  └── images/
- *      │
- *      │  ── FRAUEN ──────────────────────────────────────────
- *      ├── audrey-hepburn.jpg
- *      ├── marilyn-monroe.jpg
- *      ├── elizabeth-taylor.jpg
- *      ├── lauren-bacall.jpg
- *      ├── grace-kelly.jpg
- *      └── marlene-dietrich.jpg
- *      │
- *      │  ── MÄNNER ──────────────────────────────────────────
- *      ├── cary-grant.jpg
- *      ├── clark-gable.jpg
- *      ├── frank-sinatra.jpg
- *      ├── steve-mcqueen.jpg
- *      ├── marlon-brando.jpg
- *      └── james-dean.jpg
- *
- *  Format-Empfehlung:
- *    • JPG oder WebP, ca. 400 × 500 px (Hochformat)
- *    • Dateinamen EXAKT wie oben (Kleinschreibung, Bindestrich)
- *
- *  Tipp – Bilder direkt in GitHub hochladen:
- *    1. Im Repository auf "Add file" → "Upload files" klicken
- *    2. In den Ordner images/ navigieren (ggf. zuerst anlegen)
- *    3. Dateien mit den exakten Namen hochladen
- *    4. Commit bestätigen
- *
- *  Falls ein Bild fehlt oder nicht lädt, erscheint automatisch
- *  ein Platzhalter mit dem Namen der Ikone.
- * ============================================================
- */
-
 const data = {
   female: {
     title: "Entscheidungsbaum – Frauen",
@@ -190,7 +146,7 @@ const data = {
       audrey: {
         icon: "Audrey Hepburn",
         subtitle: "Schlichte Eleganz mit ikonischem Chic",
-        img: "images/audrey-hepburn.jpg",
+        img: "images/audrey-hepburn.webp",
         vibe: "Ideal, wenn du ein kleines Schwarzes, Perlen, Ballerinas oder eine elegante Hochsteckfrisur bevorzugst.",
         outfit: ["Kleines Schwarzes, schulterfrei oder hochgeschlossen","Perlenkette oder Perlenohrringe","Ballerinas oder schlichte Pumps","Saubere, elegante Silhouette"],
         beauty: ["Betonte Augen statt starker Lippen","Eyeliner und definierte Brauen","Hochsteckfrisur oder schicker Kurzhaarschnitt","Zurückhaltender, makelloser Teint"]
@@ -198,7 +154,7 @@ const data = {
       marilyn: {
         icon: "Marilyn Monroe",
         subtitle: "Sinnlicher Glamour mit großer Bühne",
-        img: "images/marilyn-monroe.jpg",
+        img: "images/marilyn-monroe.webp",
         vibe: "Perfekt, wenn du weiße oder cremefarbene Abendkleider, Pelz, Diamanten und rote Lippen liebst.",
         outfit: ["Weißes, cremefarbenes oder rosafarbenes Abendkleid","Faux-Fur-Stola oder Cape","Funkelnde Diamanten oder Statement-Schmuck","Peep-Toe-Heels oder hohe Pumps"],
         beauty: ["Kräftig rote Lippen","Große Locken oder glamouröse Wellen","Makelloser Teint mit Blush","Optional: Beauty Spot"]
@@ -206,7 +162,7 @@ const data = {
       elizabeth: {
         icon: "Elizabeth Taylor",
         subtitle: "Dramatisch, luxuriös und funkelnd",
-        img: "images/elizabeth-taylor.jpg",
+        img: "images/elizabeth-taylor.webp",
         vibe: "Der richtige Weg, wenn du eine figurbetonte Robe und opulenten Schmuck tragen möchtest.",
         outfit: ["Figurbetonte Abendrobe","Diamanten und Edelsteine als Blickfang","Dramatische Farben oder starke Kontraste","Elegante Heels und luxuriöse Materialien"],
         beauty: ["Intensiver Glamour-Look","Betonte Augen und definierte Konturen","Klassische Abendfrisur","Statement-Ausstrahlung statt Zurückhaltung"]
@@ -214,7 +170,7 @@ const data = {
       bacall: {
         icon: "Lauren Bacall",
         subtitle: "Zurückhaltend, aber unwiderstehlich",
-        img: "images/lauren-bacall.jpg",
+        img: "images/lauren-bacall.webp",
         vibe: "Passt gut, wenn du Understatement mit einzelnen starken Akzenten kombinieren willst.",
         outfit: ["Schlichteres Oberteil oder reduzierte Silhouette","Statement-Ohrringe als Fokus","Weniger Zierde, mehr Haltung","Elegante, unaufgeregte Linien"],
         beauty: ["Dezentes, definiertes Make-up","Selbstbewusste Ausstrahlung","Klassische Frisur ohne Überladung","Weniger ist mehr"]
@@ -222,7 +178,7 @@ const data = {
       grace: {
         icon: "Grace Kelly",
         subtitle: "Royaler Klassizismus und makellose Linien",
-        img: "images/grace-kelly.jpg",
+        img: "images/grace-kelly.webp",
         vibe: "Für alle, die dezente Raffinesse und maßgeschneiderte Eleganz bevorzugen.",
         outfit: ["Maßgeschneidertes Kleid oder klassische Silhouette","Dezenter Schmuck","Hochwertige Stoffe ohne zu viele Effekte","Sehr gepflegter, harmonischer Gesamtlook"],
         beauty: ["Makelloser, frischer Teint","Zurückhaltendes, elegantes Make-up","Glatte, klassische Frisur","Unaufdringlicher Luxus"]
@@ -230,7 +186,7 @@ const data = {
       marlene: {
         icon: "Marlene Dietrich",
         subtitle: "Androgyn, kühl und ikonisch",
-        img: "images/marlene-dietrich.jpg",
+        img: "images/marlene-dietrich.webp",
         vibe: "Die beste Wahl, wenn du Old Hollywood über Haltung und Tailoring interpretieren willst.",
         outfit: ["Smoking oder Hosenanzug","Weiße Bluse mit Krawatte","Klare Schultern und präziser Schnitt","Weniger Schmuck, mehr Präsenz"],
         beauty: ["Markante Kontur","Kühler, distanzierter Ausdruck","Sleek Styling","Bewusst androgyne Wirkung"]
@@ -275,7 +231,7 @@ const data = {
       cary: {
         icon: "Cary Grant",
         subtitle: "Zeitloser Gentleman mit perfekter Balance",
-        img: "images/cary-grant.jpg",
+        img: "images/cary-grant.webp",
         vibe: "Ideal, wenn du klassische Eleganz willst, ohne übertrieben formell zu wirken.",
         outfit: ["Grau-Flanell-Anzug mit natürlicher Schulter","Saubere, schlanke Linie ohne modische Extreme","Weißes Hemd und klassische Krawatte","Zurückhaltende, hochwertige Accessoires"],
         beauty: ["Gepflegte Haare mit sauberem Styling","Klassische Gentleman-Ausstrahlung","Keine Überladung, alles sitzt perfekt","Harmonischer Gesamtlook"]
@@ -283,7 +239,7 @@ const data = {
       gable: {
         icon: "Clark Gable",
         subtitle: "Starkes Tailoring mit klassischer Autorität",
-        img: "images/clark-gable.jpg",
+        img: "images/clark-gable.webp",
         vibe: "Richtig für dich, wenn du Doppelreiher, breite Revers und klassische Männermode der Ära liebst.",
         outfit: ["Doppelreihiger Anzug oder Dreiteiler","Breite Revers und hohe Bundfalten","Krawatte und Einstecktuch","Dunkelblau, Anthrazit oder Grau-Flanell"],
         beauty: ["Sehr gepflegtes Haar","Souveräne, formelle Ausstrahlung","Kein Casual-Bruch","Klassischer Abend-Look"]
@@ -291,7 +247,7 @@ const data = {
       sinatra: {
         icon: "Frank Sinatra",
         subtitle: "Raffinierter Abendglamour mit Persönlichkeit",
-        img: "images/frank-sinatra.jpg",
+        img: "images/frank-sinatra.webp",
         vibe: "Die beste Option, wenn du sehr stilvoll, leicht showmanhaft und abendtauglich erscheinen willst.",
         outfit: ["Anthrazitfarbener Dreiteiler oder Smoking","Trilby-Hut","Hohe Bundfalten","Opera Pumps oder besonders elegante Schuhe"],
         beauty: ["Souveränes, charmantes Auftreten","Perfekt abgestimmte Accessoires","Abendlook mit Charakter","Klassisch, aber nicht steif"]
@@ -299,6 +255,116 @@ const data = {
       mcqueen: {
         icon: "Steve McQueen",
         subtitle: "Minimalistisch, funktional und cool",
-        img: "images/steve-mcqueen.jpg",
+        img: "images/steve-mcqueen.webp",
         vibe: "Gut, wenn du Old Hollywood modern und entspannter interpretieren willst.",
-        outfit
+        outfit: ["Khakis oder schlichte Hose","Kaschmir-Pullover oder Rollkragen","Chukka Boots","Reduzierte, maskuline Basics"],
+        beauty: ["Unprätentiöses Grooming","Lässige, kontrollierte Coolness","Weniger Accessoires","Modernere Übersetzung des Mottos"]
+      },
+      brando: {
+        icon: "Marlon Brando",
+        subtitle: "Moderne Männlichkeit mit rauer Kante",
+        img: "images/marlon-brando.webp",
+        vibe: "Passt, wenn du es eher casual halten möchtest, aber trotzdem ikonisch auftreten willst.",
+        outfit: ["Weißes T-Shirt","Lederjacke","Jeans","Schlichte Boots oder Lederschuhe"],
+        beauty: ["Zweckmäßiges Styling","Selbstbewusste Lässigkeit","Kein überformeller Eindruck","Reduziert und markant"]
+      },
+      jamesdean: {
+        icon: "James Dean",
+        subtitle: "Rebellische Lässigkeit mit jugendlichem Charisma",
+        img: "images/james-dean.webp",
+        vibe: "Ideal, wenn du den nonkonformistischen, entspannten Look der Ära bevorzugst.",
+        outfit: ["Weißes T-Shirt","Roter Blouson oder Lederjacke","Schmale Jeans","Schlichte, lässige Schuhe"],
+        beauty: ["Zerzaustes Haar","Jugendlicher, rebellischer Ausdruck","Weniger geschniegelt, mehr Attitude","Casual mit ikonischer Wirkung"]
+      }
+    }
+  }
+};
+
+let currentGender = "female";
+let currentNode = "start";
+let currentPath = [];
+
+const treeEl   = document.getElementById("tree");
+const resultEl = document.getElementById("result");
+const pathEl   = document.getElementById("path");
+const genderButtons = document.querySelectorAll(".gender-btn");
+
+function renderPath() {
+  pathEl.innerHTML = currentPath.map(s => `<span class="chip">${s}</span>`).join("");
+}
+
+function renderQuestion() {
+  const config = data[currentGender];
+  const q = config.questions[currentNode];
+  resultEl.classList.remove("show");
+  resultEl.innerHTML = "";
+
+  treeEl.innerHTML = `
+    <div class="question-box">
+      <h2 class="question-title">${config.title}</h2>
+      <p>${q.text}</p>
+      <div class="options">
+        ${q.options.map((o, i) => `<button class="option-btn" data-index="${i}">${o.label}</button>`).join("")}
+      </div>
+    </div>`;
+
+  treeEl.querySelectorAll(".option-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const o = q.options[Number(btn.dataset.index)];
+      currentPath.push(o.label);
+      renderPath();
+      if (o.result) renderResult(o.result);
+      else { currentNode = o.next; renderQuestion(); }
+    });
+  });
+}
+
+function renderResult(key) {
+  const r = data[currentGender].results[key];
+
+  resultEl.innerHTML = `
+    <div class="result-header">
+      <img
+        class="result-portrait"
+        src="${r.img}"
+        alt="Porträt von ${r.icon}"
+        width="180" height="220"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=\\'portrait-fallback\\'>${r.icon}<br><small style=\\'opacity:.6\\'>Bild noch nicht hochgeladen</small></div>'"
+      />
+      <div class="result-intro">
+        <h2>Deine Ikone: ${r.icon}</h2>
+        <p class="subtitle">${r.subtitle}</p>
+        <p class="result-note">${r.vibe}</p>
+      </div>
+    </div>
+    <div class="result-grid">
+      <div class="result-card">
+        <h3>Outfit</h3>
+        <ul>${r.outfit.map(i => `<li>${i}</li>`).join("")}</ul>
+      </div>
+      <div class="result-card">
+        <h3>Beauty / Styling</h3>
+        <ul>${r.beauty.map(i => `<li>${i}</li>`).join("")}</ul>
+      </div>
+    </div>
+    <button class="restart-btn" id="restartBtn">↩ Neu starten</button>`;
+
+  resultEl.classList.add("show");
+  document.getElementById("restartBtn").addEventListener("click", () => {
+    currentNode = "start"; currentPath = []; renderPath(); renderQuestion();
+  });
+}
+
+function switchGender(gender) {
+  currentGender = gender; currentNode = "start"; currentPath = [];
+  renderPath(); renderQuestion();
+  genderButtons.forEach(b => b.classList.toggle("active", b.dataset.gender === gender));
+}
+
+genderButtons.forEach(b => b.addEventListener("click", () => switchGender(b.dataset.gender)));
+renderQuestion();
+</script>
+</body>
+</html>
+
